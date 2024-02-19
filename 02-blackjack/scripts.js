@@ -1,4 +1,5 @@
 // Código sin optimizar
+// rama de desarrollo
 
 let = deck = []; // Baraja vacía
 const types = ['C', 'D', 'H', 'S']; // Tipos de carta Clubs, Diamonds, Hearts, Spades
