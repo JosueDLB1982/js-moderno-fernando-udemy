@@ -10,31 +10,32 @@
 <body>
     <header class="title">Blackjack</header>
     <div class="row mt-2">
-        <div id="buttons" class="col text-center">
+        <div id="buttons" class="col text-center buttons">
             <button id="btnNewGame" class="btn btn-danger">Nuevo Juego</button>
-            <button id="btnAskCard" class="btn btn-primary">Pedir Carta</button>
-            <button id="btnStop" class="btn btn-primary">Detener</button>
+            <button id="btnAskCard" disabled="disabled" class="btn btn-primary">Pedir Carta</button>
+            <button id="btnStop" disabled="disabled" class="btn btn-primary">Detener</button>
         </div>
     </div>
 
-    <div class="row container">
-        <div class="col">
-            <h1>Jugador 1 - <small>0</small></h1>
-            <div class="display-cards" id="player-cards">
-                <!-- <img class="card" src="assets/cards/10D.png" alt="card"> -->
+    <div class="players-container">
+        <div>
+            <div class="col">
+                <h1>Jugador 1 - <small>0</small></h1>
+                <div class="display-cards"  >
+                    <!-- <img class="card" src="assets/cards/10D.png" alt="card"> -->
+                </div>
+            </div>
+        </div>
+    
+        <div>
+            <div class="col">
+                <h1>Computadora - <small>0</small></h1>
+                <div class="display-cards">
+                    <!-- <img class="card" src="assets/cards/4D.png" alt="card"> -->
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="row container mt-4">
-        <div class="col">
-            <h1>Computadora - <small>0</small></h1>
-            <div class="display-cards" id="computer-cards">
-                <!-- <img class="card" src="assets/cards/4D.png" alt="card"> -->
-            </div>
-        </div>
-    </div>
-
 
     <script src="underscore-min.js"></script>
     <script src="scripts.js"></script>

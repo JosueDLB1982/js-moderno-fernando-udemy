@@ -11,6 +11,11 @@
 html, body {
     background-color: var(--bg-body);
     color: var(--color);
+    min-width: 352px;
+}
+
+h1 {
+    font-size: larger;
 }
 
 .title {
@@ -21,6 +26,16 @@ html, body {
     text-transform: uppercase;
 }
 
+.buttons {
+    margin-bottom: 15px;
+}
+
+.players-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .display-cards {
     display: flex;
     height: 220px;
@@ -28,9 +43,22 @@ html, body {
 
 .card {
     position: relative;
-    width: 150px;
-    left: 105px;
-    margin-left: -105px;
+    width: 110px;
+    height: 150px;
+    left: 75px;
+    margin-left: -75px;
     border-radius: 15px;
     background-color: transparent;
+}
+
+@media(width >= 800px) {
+    .players-container {
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+    .card {
+        width: 140px;
+        height: 200px;
+    }
 }
