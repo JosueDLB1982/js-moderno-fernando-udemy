@@ -104,7 +104,7 @@
           console.warn("Ganaste el juego");
           alert("Has ganado");
         }
-      }, 50);
+      }, 20);
   }
 
   // Turno de la computadora
