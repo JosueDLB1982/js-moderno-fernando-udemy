@@ -1,4 +1,4 @@
-// Código optimizado y refactorizado
+// Código optimizado y refactorizado. Terminado
 // rama de desarrollo
 
 // Patrón módulo: encapsulamos nuestro código para protegerlo
