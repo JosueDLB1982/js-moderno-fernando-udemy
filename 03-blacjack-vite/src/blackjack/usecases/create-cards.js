@@ -4,8 +4,10 @@
  * 
  * @param {String} card carta tomada del deck cuya imagen debemos crear
  * @param {Number} turn indica el turno del jugador
+ * @returns {HTMLImageElement} imagen de la carta
  */
 export const createCards = (card, turn) => {
+  if(!card) {throw new Error('Se requiere la card')}
     const displayCards = document.querySelectorAll('.display-cards') // Node list para mostar cartas de forma dinámica
     const imgCard = document.createElement("img"); // creo una imagen
     imgCard.src = `./assets/cards/${card}.webp`; // le doy el src

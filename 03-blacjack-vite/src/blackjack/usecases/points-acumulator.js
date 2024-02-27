@@ -11,6 +11,7 @@ import { cardValue } from "./card-value";
  */
 
 export const pointsAcumulator = (card, turn, playersPoints, htmlPoints) => {
+  if(!card || !playersPoints || !htmlPoints) {throw new Error('Se deben recibir: card, turn, playersPoints y htmlPoints')}
     playersPoints[turn] += cardValue(card); //llamo la función valor carta, le paso la carta recien obtenida y acumulo su valor
     htmlPoints[turn].innerText = playersPoints[turn]; // muestro el puntaje en el HTML
     return playersPoints[turn] // puntaje del jugador

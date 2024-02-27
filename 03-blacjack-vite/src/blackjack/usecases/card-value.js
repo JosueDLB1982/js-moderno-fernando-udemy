@@ -6,6 +6,7 @@
  * @returns {Number} valor de la carta
  */
 export const cardValue = (card) => {
+  if(!card) {throw new Error('la carta (card) debe ser proporcionada')}
     const value = card.substring(0, card.length - 1); // quitamos el último caracter
 
     return isNaN(value) // verificamos si es un número o una letra

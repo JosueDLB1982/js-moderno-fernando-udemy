@@ -1,5 +1,5 @@
 import _ from 'underscore'
-import { createDeck, getCard, createCards, pointsAcumulator } from './usecases';
+import { createDeck, getCard, createCards, pointsAcumulator, computerTurn } from './usecases';
 // Patrón módulo: encapsulamos nuestro código para protegerlo
 (() => {
   // creamos una función anónima autoinvocada
@@ -34,36 +34,6 @@ import { createDeck, getCard, createCards, pointsAcumulator } from './usecases';
     btnStop.disabled = false; // y el de detener
   }
 
-  
-  // Función para determinar jugador
-  const determineWinner = () => {
-    const [minimumPoints, computerPoints] = playersPoints // usamos desestructuración de arrays para extraer los valores del array playersPoints 
-    setTimeout(() => {
-        if (minimumPoints === computerPoints) {
-          console.warn("No hay ganador");
-          alert("Nadie gana");
-        } else if (
-          minimumPoints > 21 || (computerPoints <= 21 && computerPoints > minimumPoints)) {
-          console.warn("Perdiste el juego");
-          alert("Has perdido");
-        } else if (computerPoints > 21) {
-          console.warn("Ganaste el juego");
-          alert("Has ganado");
-        }
-      }, 1500);
-  }
-
-  // Turno de la computadora
-  const computerTurn = (minimumPoints) => {
-    let computerPoints = 0;
-    do {
-      const card = getCard(deck); // llamo la función y almaceno la carta en memoria
-      computerPoints = pointsAcumulator(card, playersPoints.length - 1, playersPoints, htmlPoints); // Calculo los puntos de la computadora, su index será siempre el último del array contenedor
-      createCards(card,playersPoints.length - 1); // invoco la función que crea las cartas pasando como argumento la carta y el jugador, en este caso la computadora
-    } while (computerPoints < minimumPoints && minimumPoints <= 21);
-    determineWinner() // al terminar el turno de la computadora invoco la función que determina el ganador del juego
-  };
-
   // EVENTOS:
   btnAskCard.addEventListener("click", () => { // Botón para pedir carta
     const card = getCard(deck); // llamo la función obtener carta y almaceno la carta en memoria
@@ -74,14 +44,14 @@ import { createDeck, getCard, createCards, pointsAcumulator } from './usecases';
     if (playerPoints >= 21) {
       btnAskCard.disabled = true; // si el jugador se pasa de 21 pierde
       btnStop.disabled = true; // ergo se desabilitan los botones de pedir carta y detener
-      computerTurn(playerPoints);
+      computerTurn(playerPoints, deck, playersPoints, htmlPoints);
     } 
   });
 
   btnStop.addEventListener("click", () => { // Botón para detener turno del jugador
     btnAskCard.disabled = true; // desabilita el botón pedir carta
     btnStop.disabled = true; // y el propio botón detener
-    computerTurn(playersPoints[0]); // invoca la funcíon turno computadora, pasando como argumento los puntos del jugador, contenidos en el index 0 del array
+    computerTurn(playersPoints[0], deck, playersPoints, htmlPoints); // invoca la funcíon turno computadora, pasando como argumento los puntos del jugador, contenidos en el index 0 del array
   });
 
   btnNewGame.addEventListener("click", () => { // Botón juego nuevo
