@@ -1,5 +1,5 @@
 import _ from 'underscore'
-import { createDeck, getCard, cardValue } from './usecases';
+import { createDeck, getCard, createCards, pointsAcumulator } from './usecases';
 // Patrón módulo: encapsulamos nuestro código para protegerlo
 (() => {
   // creamos una función anónima autoinvocada
@@ -35,22 +35,6 @@ import { createDeck, getCard, cardValue } from './usecases';
   }
 
   
-  //El 0 siempre será el primer jugador y el último index será siempre el cpu
-  const pointsAcumulator = (card, turn) => {
-    playersPoints[turn] += cardValue(card); //llamo la función valor carta, le paso la carta recien obtenida y acumulo su valor
-    htmlPoints[turn].innerText = playersPoints[turn]; // muestro el puntaje en el HTML
-    return playersPoints[turn]
-  }
-
-  // Función para crear las imagenes de las cartas
-  const createCards = (card, turn) => {
-    const imgCard = document.createElement("img"); // creo una imagen
-    imgCard.src = `./assets/cards/${card}.webp`; // le doy el src
-    imgCard.classList.add("card"); // le aplico la clase
-    imgCard.alt = `image ${card}`;
-    displayCards[turn].append(imgCard); // inserto la img en el HTML
-  }
-
   // Función para determinar jugador
   const determineWinner = () => {
     const [minimumPoints, computerPoints] = playersPoints // usamos desestructuración de arrays para extraer los valores del array playersPoints 
@@ -74,7 +58,7 @@ import { createDeck, getCard, cardValue } from './usecases';
     let computerPoints = 0;
     do {
       const card = getCard(deck); // llamo la función y almaceno la carta en memoria
-      computerPoints = pointsAcumulator(card, playersPoints.length - 1); // Calculo los puntos de la computadora, su index será siempre el último del array contenedor
+      computerPoints = pointsAcumulator(card, playersPoints.length - 1, playersPoints, htmlPoints); // Calculo los puntos de la computadora, su index será siempre el último del array contenedor
       createCards(card,playersPoints.length - 1); // invoco la función que crea las cartas pasando como argumento la carta y el jugador, en este caso la computadora
     } while (computerPoints < minimumPoints && minimumPoints <= 21);
     determineWinner() // al terminar el turno de la computadora invoco la función que determina el ganador del juego
@@ -83,7 +67,7 @@ import { createDeck, getCard, cardValue } from './usecases';
   // EVENTOS:
   btnAskCard.addEventListener("click", () => { // Botón para pedir carta
     const card = getCard(deck); // llamo la función obtener carta y almaceno la carta en memoria
-    const playerPoints = pointsAcumulator(card, 0) // creo la variable que contendré los puntos del jugador y le asigno el resultado de la funcion que calcula los puntos. Le paso como argumento la carta y la posición del jugadorm en este caso index 0 por ser el primer jugador
+    const playerPoints = pointsAcumulator(card, 0, playersPoints, htmlPoints) // creo la variable que contendré los puntos del jugador y le asigno el resultado de la funcion que calcula los puntos. Le paso como argumento la carta y la posición del jugadorm en este caso index 0 por ser el primer jugador
     createCards(card, 0)
     
     // lógica para turno del jugador
