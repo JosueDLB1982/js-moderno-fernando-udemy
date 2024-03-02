@@ -1,4 +1,4 @@
-
+ 
 import { Todo } from '../todos/models/todo.model'
 
 const Filters = {
@@ -20,12 +20,20 @@ const state = {
 }
 
 const initStore = () => {
-    console.log(state)
+    loadStore() // al iniciar invocamos la función loadStore y cragamos el state
     console.log('InitStore 🥑')
 }
 
 const loadStore = () => {
-    throw new Error('Not implemented')
+    if(!localStorage.getItem('state')) return // verificamos si hay contenido en el localStorage
+
+        const { todos = [], filter = Filters.All } = JSON.parse(localStorage.getItem('state')) // desestructuramos del objeto state los todos y el filter
+        state.todos   = todos; // asignamos los todos
+        state.filter = filter; // asignamos el filter
+}
+
+const saveStateToLocalStorage = () => {
+    localStorage.setItem('state', JSON.stringify(state)) // guardo el contenido del objeto state en localStorage. Esta función convierte en string el objeto para que pueda ser leido por el localStorage
 }
 
 const getTodos = (filter = Filters.All) => {
@@ -48,6 +56,8 @@ const getTodos = (filter = Filters.All) => {
 const addTodo = (description) => {
     if(!description) throw new Error('Description is required')
     state.todos.push(new Todo(description))
+
+    saveStateToLocalStorage()
 }
 
 
@@ -62,14 +72,17 @@ const toogleTodo = (todoId) => {
         }
         return todo
     })
+    saveStateToLocalStorage()
 }
 
 const deleteTodo = (todoId) => {
     state.todos = state.todos.filter(todo => todo.id !== todoId)
+    saveStateToLocalStorage()
 }
 
 const deleteCompleted = () => {
     state.todos = state.todos.filter(todo => todo.done)
+    saveStateToLocalStorage()
 }
 
 
@@ -79,6 +92,7 @@ const deleteCompleted = () => {
  */
 const setFilter = (newFilter = Filters.All) => {
     state.filter = newFilter
+    saveStateToLocalStorage()
 }
 
 const getCurrentFilter = () => {
