@@ -299,13 +299,17 @@ body {
 	left: 0;
 }
 
+.filtro__completado {
+	margin-right: 10px;
+}
+
 .filters li {
 	display: inline;
 }
 
 .filters li a {
 	color: inherit;
-	margin: 3px;
+	/* margin: 3px; */
 	padding: 3px 7px;
 	text-decoration: none;
 	border: 1px solid transparent;
